@@ -1,0 +1,5 @@
+/NonCLEAN
+/NonCLEAN/*
+*.csv
+*.txt
+*.log
