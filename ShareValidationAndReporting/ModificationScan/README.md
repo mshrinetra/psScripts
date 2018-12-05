@@ -1,4 +1,4 @@
-## Get Share List to Scan
+## Scan the share for Modification
 
 This script scans through the given share and directory paths to count number and calculates percentage by number and by size of the files that got modified in given number of days.
 
