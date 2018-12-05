@@ -38,11 +38,22 @@ if (Test-Path $InputFile) {
 
         foreach ($rootShare in $shares) {
             $rootSharePath = $line.FilerPath + "\" + $rootShare
-
+            $subShares = $null
             try {
-                $subShares = Get-ChildItem -LiteralPath $rootSharePath -Force -ErrorAction Stop
+                $subShares = Get-ChildItem -LiteralPath $rootSharePath -Directory -Force -ErrorAction Stop | Select-Object -ExpandProperty FullName
 
-                if ($($subShares | Measure-Object | Select-Object -ExpandProperty Count) -lt 1) {
+                if ($subShares) {
+                    foreach ($subShare in $subShares) {
+                        $resultLine = New-Object psobject
+                        $resultLine | Add-Member NoteProperty "Site" $line.Site
+                        $resultLine | Add-Member NoteProperty "Filer" $line.Filer
+                        $resultLine | Add-Member NoteProperty "Root Share" $rootShare
+                        $resultLine | Add-Member NoteProperty "Root Share Path" $rootSharePath
+                        $resultLine | Add-Member NoteProperty "Sub Share Path" $subShare
+                        $result += $resultLine
+                    }
+                }
+                else {
                     $resultLine = New-Object psobject
                     $resultLine | Add-Member NoteProperty "Site" $line.Site
                     $resultLine | Add-Member NoteProperty "Filer" $line.Filer
@@ -50,17 +61,6 @@ if (Test-Path $InputFile) {
                     $resultLine | Add-Member NoteProperty "Root Share Path" $rootSharePath
                     $resultLine | Add-Member NoteProperty "Sub Share Path" $rootSharePath
                     $result += $resultLine
-                }
-                else {
-                    foreach ($subShare in $subShares) {
-                        $resultLine = New-Object psobject
-                        $resultLine | Add-Member NoteProperty "Site" $line.Site
-                        $resultLine | Add-Member NoteProperty "Filer" $line.Filer
-                        $resultLine | Add-Member NoteProperty "Root Share" $rootShare
-                        $resultLine | Add-Member NoteProperty "Root Share Path" $rootSharePath
-                        $resultLine | Add-Member NoteProperty "Sub Share Path" $($subShare | Select-Object -ExpandProperty FullName)
-                        $result += $resultLine
-                    }
                 }
             }
             catch {
