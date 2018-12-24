@@ -1,19 +1,19 @@
-#requires -version 2
 <#
 .SYNOPSIS
-    Get the list of shares that should be scanned
+Get the list of shares that should be scanned
 .DESCRIPTION
-    This script exports the list of paths that should be scanned for various share data validation and reporting tasks
+This script exports the list of paths that should be scanned for various share data validation and reporting tasks
 .INPUTS
-    Path of Input CSV File
+Path of Input CSV File
 .OUTPUTS
-    Result CSV file at working directory
+Result CSV file at working directory
 .NOTES
-    Version: 1.0
-    Author: Manvendra Shrinetra
+Version: 1.0
+Author: Manvendra Shrinetra
 .LINK
-    https://github.com/mshrinetra/psScripts
+https://github.com/mshrinetra/psScripts
 #>
+#requires -version 2
 
 $InputFile = Read-Host "Enter path of Input CSV file"
 
@@ -38,15 +38,16 @@ if (Test-Path $InputFile) {
 
         foreach ($rootShare in $shares) {
             $rootSharePath = $line.FilerPath + "\" + $rootShare
+            $rootSharePath
             $subShares = $null
             try {
-                $subShares = Get-ChildItem -LiteralPath $rootSharePath -Directory -Force -ErrorAction Stop | Select-Object -ExpandProperty FullName
+                $subShares = Get-ChildItem -LiteralPath $rootSharePath -Force -ErrorAction Stop | Where-Object {$_.PSISContainer -eq $true} | Select-Object -ExpandProperty FullName
 
                 if ($subShares) {
                     foreach ($subShare in $subShares) {
                         $resultLine = New-Object psobject
                         $resultLine | Add-Member NoteProperty "Site" $line.Site
-                        $resultLine | Add-Member NoteProperty "Filer" $line.Filer
+                        $resultLine | Add-Member NoteProperty "Filer" $line.FilerPath
                         $resultLine | Add-Member NoteProperty "Root Share" $rootShare
                         $resultLine | Add-Member NoteProperty "Root Share Path" $rootSharePath
                         $resultLine | Add-Member NoteProperty "Sub Share Path" $subShare
@@ -56,7 +57,7 @@ if (Test-Path $InputFile) {
                 else {
                     $resultLine = New-Object psobject
                     $resultLine | Add-Member NoteProperty "Site" $line.Site
-                    $resultLine | Add-Member NoteProperty "Filer" $line.Filer
+                    $resultLine | Add-Member NoteProperty "Filer" $line.FilerPath
                     $resultLine | Add-Member NoteProperty "Root Share" $rootShare
                     $resultLine | Add-Member NoteProperty "Root Share Path" $rootSharePath
                     $resultLine | Add-Member NoteProperty "Sub Share Path" $rootSharePath
@@ -66,7 +67,7 @@ if (Test-Path $InputFile) {
             catch {
                 $resultLine = New-Object psobject
                 $resultLine | Add-Member NoteProperty "Site" $line.Site
-                $resultLine | Add-Member NoteProperty "Filer" $line.Filer
+                $resultLine | Add-Member NoteProperty "Filer" $line.FilerPath
                 $resultLine | Add-Member NoteProperty "Root Share" $rootShare
                 $resultLine | Add-Member NoteProperty "Root Share Path" "NOT FOUND"
                 $resultLine | Add-Member NoteProperty "Sub Share Path" "--"

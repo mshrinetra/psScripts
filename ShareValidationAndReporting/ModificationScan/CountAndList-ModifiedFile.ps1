@@ -1,20 +1,51 @@
-#requires -version 2
 <#
 .SYNOPSIS
-    Count modified file and calculate percentage for given number of days
+Count modified file and calculate percentage for given number of days
 .DESCRIPTION
-    This script scans through the given share and directory paths to count number and calculates percentage by number and by size of the files that got modified in given number of days
+This script scans through the given share and directory paths to count number and calculates percentage by number and by size of the files that got modified in given number of days
 .INPUTS
-    Text file containing paths of shares or directories
+Text file containing paths of shares or directories
 .OUTPUTS
-    CSV file with count and percentage for each path, optionally one modified file's full path
+CSV file with count and percentage for each path, optionally one modified file's full path
+.EXAMPLE
+PS E:\> .\CountAndList-ModifiedFile.ps1
+Enter the path of Input Text file: input.txt
+Please answer 'g' to scan given paths
+'s' to scan subdirectories of given path
+Your answer: g
+Enter the number of days to scan for: 90
+Please select processes
+1. Count only
+2. List one file only
+3. Count and List one file
+Enter your choise (Serial Number): 3
+If you are restarting the process, you can give an index to start from rather than from the begining. Give 0 to start from begining.
+Enter the start Index (0 based index i.e. One less than Serial No): 0
+Scanning started at 08:43:27 24-Dec-2018
+Count Report: ModifiedCountReport.csv
+List one Report: OneModifiedFileReport.csv
+Log File: CountAndListLog.log
+Scanning for 1 in 854 ...
+PATH: \\site.dom.com\data
+....
+....
+....
+Scanning ompleted !!!
+========================================================================
+===SUMMARY======================================================
+Sart Time:       11:18:28 23-Dec-2018
+End Time:        13:49:55 23-Dec-2018
+Paths Counted:   854
+Total Time:      0 Days, 2 Hours, 31 Minutes and 26.538 Seconds
+================================================================
 .NOTES
-    Version: 1.0
-    Author: Manvendra Shrinetra
+Version: 1.0
+Author: Manvendra Shrinetra
 .LINK
-    https://github.com/mshrinetra/psScripts
+https://github.com/mshrinetra/psScripts
 #>
 
+#requires -version 2
 # ----------FUNCTIONS---------------
 function Get-CountStatsFromRobocopySummary {
     [cmdletbinding()]
@@ -213,7 +244,7 @@ function ListOne-ForPath {
     Start-Job -Name "mfsj" -ScriptBlock { 
         param($SharePathToScan, $FakeTargetPath, $FilterPeriod)
         robocopy $SharePathToScan $FakeTargetPath /e /l /ns /njs /njh /ndl /fp /ts /MAXAGE:$FilterPeriod
-    } -ArgumentList $SharePathToScan, $FakeTargetPath, $FilterPeriod
+    } -ArgumentList $SharePathToScan, $FakeTargetPath, $FilterPeriod | Out-Null
     
     $mfsj = Get-Job -Name "mfsj"
     while ((($mfsj | Select-Object -ExpandProperty State) -ne "Completed") -and ($newFileFound -eq $false)) {
