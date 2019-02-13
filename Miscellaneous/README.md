@@ -8,7 +8,7 @@ This script will delete files and directories at given frequency in a given dire
 This script will Combine Csv files that have same headers, in given directory.
 
 ### Prepend-DirNamesToFile.ps1
-This script will prepend the name of subdirectory in the given directory to the names of file with given extention in the respective subdirectories and will make a copy in newly created folder "PrependedFiles" in the given directory.
+This script will prepend the name of subdirectory in the given directory to the names of file with given extention in the respective subdirectories and will make a copy in newly created folder "_PrependedFiles" in the given directory.
 
 ### Put-FilesToSubfolders.ps1
 This script will put the files with given extention to the given subdirectory in given directory.
