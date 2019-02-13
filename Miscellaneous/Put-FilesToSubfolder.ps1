@@ -29,7 +29,6 @@ if((Test-Path -LiteralPath $DirectoryPath) -and (!([System.IO.Path]::HasExtensio
     if($count -gt 0){
         Write-Host "$count files found" -ForegroundColor Green
         New-Item -LiteralPath $DirectoryPath -Name $SubdirectoryName -ItemType "Directory" -Force
-        $SubdirectoryPath = $DirectoryPath + '\' + $SubdirectoryName + '\'
         Write-Host "Subdirectory $SubdirectoryName created" -ForegroundColor Green
         $i = 0
         foreach ($file in $files) {
