@@ -51,3 +51,11 @@ While giving file or UNC paths as input, always
 * Prifer to give absolute full path
 * If giving relative path, give the path in relation to the directory in which script is running
 * Give the full file name with extension
+
+### NOTES
+
+Author: Manvendra Shrinetra
+
+### LINK
+
+https://github.com/mshrinetra/psScripts

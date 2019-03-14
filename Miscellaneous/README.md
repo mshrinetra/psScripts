@@ -24,3 +24,11 @@ This script will split the content of one given column of a given CSV file in te
 
 ### Convert-SizeFromPostfix.ps1
 This script will convert the postfix size format e.g. 15 K, 22M, 2.36G etc into a given column of given CSV file into Bytes and will add a new column titled "InBytes" in the given output CSV file.
+
+### NOTES
+
+Author: Manvendra Shrinetra
+
+### LINK
+
+https://github.com/mshrinetra/psScripts

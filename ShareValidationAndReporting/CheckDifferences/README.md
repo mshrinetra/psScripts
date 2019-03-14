@@ -9,7 +9,7 @@ Thsis script checks the difeerence between files at two locations recursively an
 When prompted for path of input CSV File, that contains source and destination paths under columns titled "Source" and "Destination".
 
 * It is advisable to save CSV file in Unicode or UTF-8 encoding format rather than ASCII
-* Share paths value should start with double back slashes (\\)
+* Share paths value should start with double back slashes `\\`
 
 #### Report Directory Path
 
@@ -30,27 +30,28 @@ One index (CSV) file containing the path of report for each path and report file
 
 ### EXAMPLE
 
-   PS C:\\> .\Validate-Differences.ps1
+```
+   PS C:\> .\Validate-Differences.ps1
    Please enter the path of Input map file: map.csv
    Enter the path of directory where the result will be saved: .
    Creating new subdirectory in report directory to keep all the reports
 
 
-      Directory: C:\\
+      Directory: C:\
 
 
    Mode                LastWriteTime     Length Name
    ----                -------------     ------ ----
    d----         3/13/2019   4:42 PM            ValidationReports_2
-   Reports for this scan will be saved in: .\\ValidationReports_2
+   Reports for this scan will be saved in: .\ValidationReports_2
    Validation started at 16:42:28 13-Mar-2019
    ========================================================================
    ------------------------------------------------------------------------
    Validating 1 of 1 for
-   SOURCE: C:\\Users\\testuser\\Desktop\\Source
-   DESTINATION: C:\\Users\\testuser\\Desktop\\Destination
+   SOURCE: C:\Users\testuser\Desktop\Source
+   DESTINATION: C:\Users\testuser\Desktop\Destination
 
-   Log File : C:\\ValidationReports_2\\Diffs1.txt
+   Log File : C:\ValidationReports_2\Diffs1.txt
    ------------------------------------------------------------------------
    ========================================================================
    Validation Completed!!!
@@ -60,11 +61,11 @@ One index (CSV) file containing the path of report for each path and report file
    Paths Validated: 1
    Total Time:      0 Days, 0 Hours, 0 Minutes and 0.251 Seconds
    ================================================================
-
+```
 
 ### NOTES
-Version: 1.0
 
+Version: 1.0
 Author: Manvendra Shrinetra
 
 ### LINK

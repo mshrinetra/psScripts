@@ -9,7 +9,7 @@ Input should be a CSV (Comma Separated Value) file, with 3 columns i.e. Site, Fi
 * It is advisable to save CSV file in Unicode or UTF-8 encoding format rather than ASCII
 * Field delimiter should be comma (,) and Text delimiter should be double quotes (") for CSV files
 * Site and Filer values will be as it is exported to out put, which can be used later for sorting and filter.
-* FilerPath value should start with double back slashes (\\\\) and column header i.e. "FilerPath" should be one word
+* FilerPath value should start with double back slashes `\\` and column header i.e. "FilerPath" should be one word
 
 Below is a sample Input file
 
@@ -60,3 +60,12 @@ Below is a sample output file
 * Check the contnet of the shares
 * If share contains the directories, list full path of these directories under "Sub share path"
 * If share does not contains any directory list the share under "Sub share path"
+
+### NOTES
+
+Version: 1.0
+Author: Manvendra Shrinetra
+
+### LINK
+
+https://github.com/mshrinetra/psScripts
