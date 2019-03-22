@@ -26,7 +26,16 @@ Count Report: ModifiedCountReport.csv
 List one Report: OneModifiedFileReport.csv
 Log File: CountAndListLog.log
 Scanning for 1 in 854 ...
-PATH: \\site.dom.com\data
+        PATH: \\site.dom.com\data
+
+AllFileCount         : 542
+ModifiedFileCount    : 1
+ModifiedCountPercent : 0.18
+AllFilesSize         : 107.80 M
+ModifiedFilesSize    : 66
+ModifiedSizePercent  : 0
+
+        PATH: \\site.dom.com\home
 ....
 ....
 ....
@@ -201,7 +210,7 @@ function Count-ForPath {
 
     $scanResult >> $LogFilePath 
     $statsResult = $scanResult | Get-CountStatsFromRobocopySummary
-    Write-Host "$statsResult"
+    $statsResult | Out-Default
 
     $resultRecord | Add-Member NoteProperty "Share Path" $SharePathToScan
     $resultRecord | Add-Member NoteProperty "Modified File Count" $statsResult.ModifiedFileCount
