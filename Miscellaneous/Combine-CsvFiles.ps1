@@ -1,7 +1,24 @@
+<#
+.SYNOPSIS
+Combines the CSV files in a folder
+.DESCRIPTION
+Combines CSV files in folder that have same headings.
+.INPUTS
+Path of the directory where CSV Files are
+.OUTPUTS
+One combined CSV file
+
+.NOTES
+Version: 1.0
+Author: Manvendra Shrinetra
+.LINK
+https://github.com/mshrinetra/psScripts
+#>
+
 $dir = Read-Host "Enter the directory path"
 
 if (Test-Path $dir) {
-    $csvs = Get-ChildItem -LiteralPath $dir -Force | Where-Object {($_.PSISContainer -eq $false) -and ($_.Name -like "*.csv")} | Select-Object Name, FullName
+    $csvs = Get-ChildItem -LiteralPath $dir -Force | Where-Object { ($_.PSISContainer -eq $false) -and ($_.Name -like "*.csv") } | Select-Object Name, FullName
 
     $fileTypes = @()
     foreach ($csv in $csvs) {
